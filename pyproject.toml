@@ -1,0 +1,41 @@
+[build-system]
+requires = ["hatchling >= 1.26", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[project]
+name = "seaweed_algebra"
+dynamic = ["version"]
+authors = [{ name = "Jeffrey Morris", email = "jeff@jeff-m.com" }]
+maintainers = [{ name = "Jeffrey Morris", email = "jeff@jeff-m.com" }]
+description = "A library for dealing with seewead algebras."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "matplotlib>=3.10.0",
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+license = "LGPL-3.0-only"
+license-files = ["LICEN[CS]E*"]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=9.0.0",
+    "ruff>=0.15.0",
+    "build"
+]
+test = [
+    "pytest>=9.0.0"
+]
+
+[project.urls]
+Homepage = "https://github.com/daflamingfox/seaweed_algebra"
+Issues = "https://github.com/daflamingfox/seaweed_algebra/issues"
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.hatch.build.hooks.vcs]
+version-file = "seaweed_algebra/_version.py"
