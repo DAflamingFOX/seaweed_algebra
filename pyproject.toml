@@ -38,4 +38,4 @@ Issues = "https://github.com/daflamingfox/seaweed_algebra/issues"
 source = "vcs"
 
 [tool.hatch.build.hooks.vcs]
-version-file = "seaweed_algebra/_version.py"
+version-file = "src/seaweed_algebra/_version.py"
