@@ -1,11 +1,12 @@
+import math
+from typing import Literal
+
+from matplotlib import pyplot as plt
 from matplotlib.axes import Axes
 from matplotlib.patches import PathPatch
 from matplotlib.path import Path
 
-from .seaweed import SeaweedMatrix
-import matplotlib.pyplot as plt
-from matplotlib.patches import Arc
-from typing import Literal
+import seaweed_algebra
 
 
 class Meander:
@@ -19,8 +20,8 @@ class Meander:
         self.bottom_blocks = bottom_blocks
 
     @classmethod
-    def from_seaweed(cls, seaweed: SeaweedMatrix):
-        return cls(seaweed.left_partition, seaweed.top_partiton)
+    def from_seaweed(cls, seaweed: seaweed_algebra.Seaweed):
+        return cls(seaweed.top_blocks, seaweed.bottom_blocks)
 
     def _plot_bezier_curve(
         self,

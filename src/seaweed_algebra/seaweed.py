@@ -1,7 +1,7 @@
 from matplotlib.axes import Axes
 import matplotlib.pyplot as plt
 
-from .meander import Meander
+import seaweed_algebra
 
 
 class Seaweed:
@@ -24,7 +24,7 @@ class Seaweed:
         self.bottom_blocks = bottom_blocks
 
     @classmethod
-    def from_meander(cls, meander:Meander):
+    def from_meander(cls, meander: seaweed_algebra.Meander):
         return cls(meander.top_blocks, meander.bottom_blocks)
 
     def _get_max_row(self) -> list[int]:
