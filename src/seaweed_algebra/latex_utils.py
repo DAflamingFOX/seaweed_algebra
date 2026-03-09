@@ -1,7 +1,7 @@
 from typing import Callable, Literal
 
-from matplotlib.axes import Axes
 import matplotlib.pyplot as plt
+from matplotlib.axes import Axes
 
 
 def export_as_pgf(
