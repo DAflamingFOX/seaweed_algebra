@@ -6,8 +6,6 @@ from matplotlib.axes import Axes
 from matplotlib.patches import PathPatch
 from matplotlib.path import Path
 
-import seaweed_algebra
-
 
 class Meander:
     def __init__(self, top_blocks: list[int], bottom_blocks: list[int]):
@@ -20,7 +18,7 @@ class Meander:
         self.bottom_blocks = bottom_blocks
 
     @classmethod
-    def from_seaweed(cls, seaweed: seaweed_algebra.Seaweed):
+    def from_seaweed(cls, seaweed):
         return cls(seaweed.top_blocks, seaweed.bottom_blocks)
 
     def _plot_bezier_curve(
