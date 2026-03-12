@@ -1,0 +1,34 @@
+\documentclass[12pt]{article}
+
+\usepackage{geometry}
+\geometry{letterpaper, left=15mm, right=15mm, top=15mm, bottom=20mm}
+
+\usepackage{pgf}
+\usepackage{import}
+\usepackage{graphicx}
+\usepackage{subcaption}
+
+\begin{document}
+
+\begin{figure}[h]
+    \centering
+    \resizebox{0.5\textwidth}{!}{
+        \import{graphs}{seaweed1.pgf}
+    }
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \resizebox{\textwidth}{!}{
+        \import{graphs}{fig2.pgf}
+    }
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \resizebox{0.8\textwidth}{!}{
+        \import{graphs}{meander3.pgf}
+    }
+\end{figure}
+
+\end{document}
