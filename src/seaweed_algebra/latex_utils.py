@@ -10,6 +10,13 @@ def export_as_pgf(
     filename: str,
     texsystem: Literal["pdflatex", "lualatex", "xelatex"] = "pdflatex",
 ) -> None:
+    """Export any Matplotlib Figure or Axes as a pgf plot file.
+
+    Args:
+        plot_mpl (Callable[[], Figure  |  Axes]): Function which generates a Matplotlib Figure or Axes object to be converted.
+        filename (str): The filename (and path) of the output file.
+        texsystem (Literal[&quot;pdflatex&quot;, &quot;lualatex&quot;, &quot;xelatex&quot;], optional): The TeX system to support. Defaults to "pdflatex".
+    """
     if not filename.endswith(".pgf"):
         filename += ".pgf"
 
