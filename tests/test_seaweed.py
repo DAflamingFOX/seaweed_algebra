@@ -6,10 +6,11 @@ from seaweed_algebra import Seaweed
 def test_seaweed_validation():
     # The blocks must produce a n by n matrix.
     with pytest.raises(ValueError, match="The sum of the top and bottom"):
-        Seaweed([1,2], [1,1])
+        Seaweed([1, 2], [1, 1])
+
 
 def test_seaweed_row_calculations():
-    sw = Seaweed([4,1], [2,1,2])
+    sw = Seaweed([4, 1], [2, 1, 2])
 
     # The left-most valid non-zero column index
     left = [0, 0, 0, 0, 4]
