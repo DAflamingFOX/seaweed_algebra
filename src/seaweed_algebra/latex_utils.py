@@ -1,3 +1,4 @@
+import os
 from typing import Callable, Literal
 
 import matplotlib.pyplot as plt
@@ -17,8 +18,13 @@ def export_as_pgf(
         filename (str): The filename (and path) of the output file.
         texsystem (Literal[&quot;pdflatex&quot;, &quot;lualatex&quot;, &quot;xelatex&quot;], optional): The TeX system to support. Defaults to "pdflatex".
     """
+    # Append the pgf file extension if it wasn't provided.
     if not filename.endswith(".pgf"):
         filename += ".pgf"
+
+    # Create parent directory if it doesn't exist.
+    path = filename.rsplit("/", maxsplit=1)[0]
+    os.makedirs(path, exists_ok=True)
 
     pgf_config = {"pgf.texsystem": texsystem}
 
