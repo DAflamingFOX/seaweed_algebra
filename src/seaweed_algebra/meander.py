@@ -1,14 +1,10 @@
-import math
 from enum import Enum
-from typing import Literal, Self
+from typing import Self
 
-from matplotlib import pyplot as plt
-from matplotlib.axes import Axes
-from matplotlib.patches import PathPatch
-from matplotlib.path import Path
+from .base import Base
 
 
-class Meander:
+class Meander(Base):
     class Move(Enum):
         BLOCK_ELIMINATION = "Bl"
         ROTATION_CONTRACTION = "R"
@@ -16,13 +12,11 @@ class Meander:
         FLIP = "F"
         COMPONENT_DELETION = "C"
 
-    def __init__(self, top_blocks: list[int], bottom_blocks: list[int]):
-        if sum(top_blocks) != sum(bottom_blocks):
-            raise ValueError("The sum of the top and bottom blocks must be equal.")
+        def __str__(self) -> str:
+            return self.value
 
-        self.n = sum(top_blocks)
-        self.top_blocks = top_blocks
-        self.bottom_blocks = bottom_blocks
+        def __repr__(self) -> str:
+            return self.value
 
     @classmethod
     def from_seaweed(cls, seaweed):
