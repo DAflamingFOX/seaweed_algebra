@@ -28,16 +28,7 @@ class Meander:
     def from_seaweed(cls, seaweed):
         return cls(seaweed.top_blocks, seaweed.bottom_blocks)
 
-    def __eq__(self, other):
-        if not isinstance(other, Meander):
-            return NotImplemented
-
-        return (
-            self.top_blocks == other.top_blocks
-            and self.bottom_blocks == other.bottom_blocks
-        )
-
-    def block_elimination(self) -> Self:
+    def _block_elimination(self) -> Self:
         """
         If a_1 = 2b_1 then M(g) -> M' of type (b_1|a_2|...|a_m) / (b_2|b_3|...|b_t)
         """
@@ -49,7 +40,12 @@ class Meander:
 
         return self
 
-    def rotation_contraction(self) -> Self:
+    def _inv_block_elimination(self) -> Self:
+        a, b = self.top_blocks, self.bottom_blocks
+
+        return Meander([2 * a[0]] + a[1:], [a[0]] + b)
+
+    def _rotation_contraction(self) -> Self:
         """
         If b_1 < a_1 < 2b_1, then M(g) -> M' of type (b_1|a_2|...|a_m) / ((2b_1 - a_1)|b_2|...|b_t)
         """
@@ -61,7 +57,13 @@ class Meander:
 
         return self
 
-    def pure_contraction(self) -> Self:
+    def _inv_rotation_contraction(self) -> Self:
+
+        a, b = self.top_blocks, self.bottom_blocks
+
+        return Meander([2 * a[0] - b[0]] + a[1:], [a[0]] + b[1:])
+
+    def _pure_contraction(self) -> Self:
         """
         If a_1 > 2_b1, then M(g) -> M' of type ((a_1 - 2b_1)|b_1|a_2|...|a_m) / (b_2|b_3|...|b_t)
         """
@@ -73,7 +75,13 @@ class Meander:
 
         return self
 
-    def flip(self) -> Self:
+    def _inv_pure_contraction(self) -> Self:
+
+        a, b = self.top_blocks, self.bottom_blocks
+
+        return Meander([a[0] + 2 * a[1]] + a[2:], [a[1]] + b)
+
+    def _flip(self) -> Self:
         """
         If a_1 < b_1, then M(g) -> M' of type (b_1|b_2|...|b_t) / (a_1|...|a_m)
         """
@@ -85,7 +93,13 @@ class Meander:
 
         return self
 
-    def component_deletion(self) -> tuple[Self, int]:
+    def _inv_flip(self) -> Self:
+
+        a, b = self.top_blocks, self.bottom_blocks
+
+        return Meander(b, a)
+
+    def _component_deletion(self) -> tuple[Self, int]:
         """
         If a_1 = b_1 = c, then M(g) -> M' of type (a_2|...|a_m) / (b_2|...|b_t)
         """
@@ -96,6 +110,12 @@ class Meander:
             return Meander(a[1:], b[1:]), a[0]
 
         return self, 0
+
+    def _inv_component_deletion(self, c: int = 1) -> Self:
+
+        a, b = self.top_blocks, self.bottom_blocks
+
+        return Meander([c] + a, [c] + b)
 
     # --- Sequences and Properties
 
@@ -108,22 +128,45 @@ class Meander:
             a1, b1 = curr.top_blocks[0], curr.bottom_blocks[0]
 
             if a1 == b1:
-                curr, c = curr.component_deletion()
+                curr, c = curr._component_deletion()
                 yield Meander.Move.COMPONENT_DELETION, c
             elif a1 < b1:
-                curr = curr.flip()
+                curr = curr._flip()
                 yield Meander.Move.FLIP, 0
             elif a1 == 2 * b1:
-                curr = curr.block_elimination()
+                curr = curr._block_elimination()
                 yield Meander.Move.BLOCK_ELIMINATION, 0
             elif b1 < a1 < 2 * b1:
-                curr = curr.rotation_contraction()
+                curr = curr._rotation_contraction()
                 yield Meander.Move.ROTATION_CONTRACTION, 0
             elif a1 > 2 * b1:
-                curr = curr.pure_contraction()
+                curr = curr._pure_contraction()
                 yield Meander.Move.PURE_CONTRACTION, 0
             else:
                 raise RuntimeError(f"No valid move. a_1={a1}, b_1={b1}")
+
+    @staticmethod
+    def _wind_up(moves: list[Move], deletions: list[int] | None = None):
+        if deletions is None:
+            deletions = [1] * moves.count(Meander.Move.COMPONENT_DELETION)
+
+        curr = Meander([], [])
+        deletion_count = 0
+        for move in moves:
+            match move:
+                case Meander.Move.BLOCK_ELIMINATION:
+                    curr = curr._inv_block_elimination()
+                case Meander.Move.ROTATION_CONTRACTION:
+                    curr = curr._inv_rotation_contraction()
+                case Meander.Move.PURE_CONTRACTION:
+                    curr = curr._inv_pure_contraction()
+                case Meander.Move.FLIP:
+                    curr = curr._inv_flip()
+                case Meander.Move.COMPONENT_DELETION:
+                    curr = curr._inv_component_deletion(deletions[deletion_count])
+                    deletion_count += 1
+
+        return curr
 
     def signature(self) -> list[Move]:
         """
@@ -132,7 +175,7 @@ class Meander:
 
         return [move for move, _ in self._wind_down()]
 
-    def homotopy_type(self) -> list[int]:
+    def homotopy(self) -> list[int]:
         """
         Calculate the homotopy type of this Meander.
         """
@@ -142,3 +185,10 @@ class Meander:
             for move, c_val in self._wind_down()
             if move == Meander.Move.COMPONENT_DELETION
         ]
+
+    def component(self) -> Self:
+        """
+        Calculate the component Meander of this Meander.
+        """
+
+        return Meander._wind_up(list(reversed(self.signature())), None)
