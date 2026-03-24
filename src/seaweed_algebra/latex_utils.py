@@ -24,7 +24,7 @@ def export_as_pgf(
 
     # Create parent directory if it doesn't exist.
     path = filename.rsplit("/", maxsplit=1)[0]
-    os.makedirs(path, exists_ok=True)
+    os.makedirs(path, exist_ok=True)
 
     pgf_config = {"pgf.texsystem": texsystem}
 
