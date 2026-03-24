@@ -7,7 +7,51 @@ on:
     branches: [ "main" ]
 
 jobs:
-  test-and-lint:
+  lint-ruff:
+    name: Lint with Ruff
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      - name: Run Ruff
+        run: ruff check .
+
+  typecheck-pyright:
+    name: Type Check with Pyright
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      - name: Run Pyright
+        run: pyright
+
+  test-pytest:
     name: Run Tests & Linters
     runs-on: ubuntu-latest
     strategy:
@@ -28,18 +72,14 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install ruff pytest
-        pip install -e .
-
-    - name: Lint with Ruff
-      run: ruff check .
+        pip install -e ".[dev]"
 
     - name: Run Pytest
       run: pytest
 
   build-artifact:
     name: Build Package Artifact
-    needs: test-and-lint
+    needs: [lint-ruff, typecheck-pyright, test-pytest]
     runs-on: ubuntu-latest
 
     steps:

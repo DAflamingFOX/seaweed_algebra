@@ -24,6 +24,7 @@ license-files = ["LICEN[CS]E*"]
 dev = [
     "pytest>=9.0.0",
     "ruff>=0.15.0",
+    "pyright>=1.1.408",
     "build"
 ]
 test = [
@@ -42,3 +43,7 @@ version-file = "src/seaweed_algebra/_version.py"
 
 [tool.ruff.lint]
 extend-select = ["I"]
+
+[tool.pyright]
+include = ["src"]
+typeCheckingMode = "standard"
