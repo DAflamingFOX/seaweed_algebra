@@ -1,6 +1,7 @@
 from matplotlib import pyplot as plt
 
-from seaweed_algebra.meander import Meander
+from seaweed_algebra import Meander
+from seaweed_algebra.visual import plot_meander
 
 # Create the Meander 17|3 by 10|4|6
 m = Meander([17, 3], [10, 4, 6])
@@ -9,29 +10,23 @@ m = Meander([17, 3], [10, 4, 6])
 moves = m.signature()
 
 # Calculate the Homotopy type, H(c_1, ..., c_h), this returns a list of c values.
-homotopy = m.homotopy_type()
+homotopy = m.homotopy()
 
 # Print our results.
-meander_name = (
-    f"{'|'.join(map(str, m.top_blocks))} by {'|'.join(map(str, m.bottom_blocks))}"
-)
 homotopy_type = f"H({','.join(map(str, homotopy))})"
-print(f"\nThe signature of {meander_name} is:\n{',\n'.join(m.name for m in moves)}")
-print(f"\nThe homotopy type of {meander_name} is: {homotopy_type}")
-
+print(f"\nThe signature of {m} is: {''.join(m.value for m in moves)}")
+print(f"\nThe homotopy type of {m} is: {homotopy_type}")
 
 # Display the plots
-input("Press Enter to display the plots...\n")
-
 _, ax_dict = plt.subplot_mosaic("AA.B", figsize=(10, 3))
 
-m.draw_matplotlib(ax=ax_dict["A"])
+plot_meander(m, ax=ax_dict["A"])
 ax_dict["A"].set_title(
-    rf"Meander of type $\frac{{{meander_name.split(' by ')[0]}}}{{{meander_name.split(' by ')[1]}}}$"
+    rf"Meander of type $\frac{{{str(m).split(' / ')[0]}}}{{{str(m).split(' / ')[1]}}}$"
 )
 
 m_homotopy = Meander(homotopy, homotopy)
-m_homotopy.draw_matplotlib(ax=ax_dict["B"])
+plot_meander(m_homotopy, ax=ax_dict["B"], arc_scale=0.5)
 ax_dict["B"].set_title(homotopy_type)
 
 plt.show()
