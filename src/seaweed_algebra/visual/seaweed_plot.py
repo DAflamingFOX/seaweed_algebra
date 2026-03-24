@@ -134,7 +134,7 @@ def plot_seaweed(
             seaweed.top_blocks, seaweed.bottom_blocks
         )
 
-        def draw_meander(blocks: list[int], is_top=bool):
+        def plot_meander(blocks: list[int], is_top: bool):
             start_offset = 0
             for block in blocks:
                 size = block - 1
@@ -164,7 +164,7 @@ def plot_seaweed(
                     arc_offset += 1
                 start_offset += block
 
-        draw_meander(seaweed.top_blocks, True)
-        draw_meander(seaweed.bottom_blocks, False)
+        plot_meander(seaweed.top_blocks, True)
+        plot_meander(seaweed.bottom_blocks, False)
 
     return ax

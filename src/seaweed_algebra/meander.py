@@ -22,7 +22,7 @@ class Meander(Base):
     def from_seaweed(cls, seaweed):
         return cls(seaweed.top_blocks, seaweed.bottom_blocks)
 
-    def _block_elimination(self) -> Self:
+    def _block_elimination(self) -> "Meander":
         """
         If a_1 = 2b_1 then M(g) -> M' of type (b_1|a_2|...|a_m) / (b_2|b_3|...|b_t)
         """
@@ -34,12 +34,12 @@ class Meander(Base):
 
         return self
 
-    def _inv_block_elimination(self) -> Self:
+    def _inv_block_elimination(self) -> "Meander":
         a, b = self.top_blocks, self.bottom_blocks
 
         return Meander([2 * a[0]] + a[1:], [a[0]] + b)
 
-    def _rotation_contraction(self) -> Self:
+    def _rotation_contraction(self) -> "Meander":
         """
         If b_1 < a_1 < 2b_1, then M(g) -> M' of type (b_1|a_2|...|a_m) / ((2b_1 - a_1)|b_2|...|b_t)
         """
@@ -51,13 +51,13 @@ class Meander(Base):
 
         return self
 
-    def _inv_rotation_contraction(self) -> Self:
+    def _inv_rotation_contraction(self) -> "Meander":
 
         a, b = self.top_blocks, self.bottom_blocks
 
         return Meander([2 * a[0] - b[0]] + a[1:], [a[0]] + b[1:])
 
-    def _pure_contraction(self) -> Self:
+    def _pure_contraction(self) -> "Meander":
         """
         If a_1 > 2_b1, then M(g) -> M' of type ((a_1 - 2b_1)|b_1|a_2|...|a_m) / (b_2|b_3|...|b_t)
         """
@@ -69,13 +69,13 @@ class Meander(Base):
 
         return self
 
-    def _inv_pure_contraction(self) -> Self:
+    def _inv_pure_contraction(self) -> "Meander":
 
         a, b = self.top_blocks, self.bottom_blocks
 
         return Meander([a[0] + 2 * a[1]] + a[2:], [a[1]] + b)
 
-    def _flip(self) -> Self:
+    def _flip(self) -> "Meander":
         """
         If a_1 < b_1, then M(g) -> M' of type (b_1|b_2|...|b_t) / (a_1|...|a_m)
         """
@@ -87,13 +87,13 @@ class Meander(Base):
 
         return self
 
-    def _inv_flip(self) -> Self:
+    def _inv_flip(self) -> "Meander":
 
         a, b = self.top_blocks, self.bottom_blocks
 
         return Meander(b, a)
 
-    def _component_deletion(self) -> tuple[Self, int]:
+    def _component_deletion(self) -> tuple["Meander", int]:
         """
         If a_1 = b_1 = c, then M(g) -> M' of type (a_2|...|a_m) / (b_2|...|b_t)
         """
@@ -105,7 +105,7 @@ class Meander(Base):
 
         return self, 0
 
-    def _inv_component_deletion(self, c: int = 1) -> Self:
+    def _inv_component_deletion(self, c: int = 1) -> "Meander":
 
         a, b = self.top_blocks, self.bottom_blocks
 
@@ -180,7 +180,7 @@ class Meander(Base):
             if move == Meander.Move.COMPONENT_DELETION
         ]
 
-    def component(self) -> Self:
+    def component(self) -> "Meander":
         """
         Calculate the component Meander of this Meander.
         """
