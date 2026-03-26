@@ -49,7 +49,6 @@ def _plot_arcs(
     for block in partitions:
         size = block - 1
         arc_offset = 0
-        num_arcs = math.floor(block / 2)
 
         while size >= 1:
             left = start_offset + arc_offset
@@ -60,7 +59,7 @@ def _plot_arcs(
                 ax,
                 left,
                 right,
-                num_arcs - arc_offset,
+                right - left,
                 orientation,
                 arc_scale,
                 arc_color,
