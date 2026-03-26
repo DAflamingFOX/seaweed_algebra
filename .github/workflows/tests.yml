@@ -52,7 +52,7 @@ jobs:
         run: pyright
 
   test-pytest:
-    name: Run Tests & Linters
+    name: Test with Pytest
     runs-on: ubuntu-latest
     strategy:
       matrix:
