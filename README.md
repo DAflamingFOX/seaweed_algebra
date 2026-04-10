@@ -1,30 +1,46 @@
 # Seaweed Algebra
-<!--
+
+![GitHub Actions - CI](https://img.shields.io/github/actions/workflow/status/daflamingfox/seaweed_algebra/ci.yml?label=CI)
 ![PyPI - Version](https://img.shields.io/pypi/v/seaweed_algebra)
 ![PyPI - License](https://img.shields.io/pypi/l/seaweed_algebra)
--->
-[![CI Tests & Build](https://github.com/DAflamingFOX/seaweed_algebra/actions/workflows/tests.yml/badge.svg)](https://github.com/DAflamingFOX/seaweed_algebra/actions/workflows/tests.yml)
 
-A Python library for dealing with seaweed algebra.
+A Python library for computing, plotting, and other tasks related to seaweed algebra.
 
-## Installation
-<!--
+## Setup
 
-The package is only going to be on pypi if we're publishing it, for now, the namespace is simply reserved with an example project.
+### Requirements
 
-### Release version
+- [Python](https://www.python.org/downloads/)
+- [pip](https://pip.pypa.io/en/stable/installation/) (typically installed alongside python)
 
-The Seaweed Algebra package is available directly from [pypi.](https://pypi.org/project/seaweed-algebra/)
+### Development Environments
 
-You can install it via:
+Any Python or Jupyter Notebook development environment will work!
+
+Here are a few recommendations if you need a place to start:
+
+- [Visual Studio Code](https://code.visualstudio.com/) (very popular)
+    - Install the [Python Extension.](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
+    - If you want to use notebooks, you'll want the [Jupyter Extension](https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter) as well.
+- [Google Colab](https://colab.research.google.com/) (cloud based)
+    - Try opening [this demo file](https://colab.research.google.com/github/DAflamingFOX/seaweed_algebra/blob/main/demo/notebook_demoipynb.ipynb) in Colab.
+- [JupyterLab / Jupyter Notebook](https://jupyter.org/)
+
+### Installation
+
+Running the following command will tell pip to download the most recently published version from the [Python Package Index.](https://pypi.org/project/seaweed-algebra/)
+
 ```bash
 pip install seaweed-algebra
 ```
 
--->
-### Install from GitHub
+<details>
 
-To install the library directly from GitHub simply run the following:
+<summary>Advanced installation information</summary>
+
+If you wish to use a version of the library that is unpublished, you can do so in a few ways:
+
+#### Installing from GitHub
 
 ```bash
 pip install git+https://github.com/daflamingfox/seaweed_algebra
@@ -35,33 +51,21 @@ Additionally, you can specify a specific version by appending `@VERSION` to the 
 - A specific tag, such as `@v0.0.5`
 - A specific commit hash, such as `@c87aad3`
 
-### Local Development
+#### Installing from a local copy
 
-To develop locally, you can use the `-e` flag in `pip` which will create install the package as 'editable', meaning, if you update the source files, then the package is automatically rebuilt for you.
+If you want to change the source code yourself and test your changes, you can install your local copy of the library like such:
 
-To be more direct:
+```bash
+# This command assumes you are running it from the base project directory.
+pip install -e .
+```
 
-1. Clone this repository using:
-
-    ```bash
-    git clone https://github.com/daflamingfox/seaweed_algebra
-    ```
-2. Open the project directory using:
-
-    ```bash
-    cd seaweed_algebra
-    ```
-3. Install the project as an editable package using:
-
-    ```bash
-    pip install -e .
-    ```
-
-Now, any changes you make to the library will immediately be represented in your installed version.
+Using the `-e` flag tells pip to install the package as 'editable,' so that any changes you make to the source code is immediately reflected in the installed version on your machine.
+</details>
 
 ## Usage
 
-See the `demo/` folder for demo examples for how to use the library.
+See the [example](examples/README.md) folder for examples and demos for how to use the library.
 
 ## License
 
