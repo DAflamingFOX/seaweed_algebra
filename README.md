@@ -23,7 +23,7 @@ Here are a few recommendations if you need a place to start:
     - Install the [Python Extension.](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
     - If you want to use notebooks, you'll want the [Jupyter Extension](https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter) as well.
 - [Google Colab](https://colab.research.google.com/) (cloud based)
-    - Try opening [this demo file](https://colab.research.google.com/github/DAflamingFOX/seaweed_algebra/blob/main/demo/notebook_demoipynb.ipynb) in Colab.
+    - Try opening [this demo file](https://colab.research.google.com/github/DAflamingFOX/seaweed_algebra/blob/main/examples/basic_usage.ipynb) in Colab.
 - [JupyterLab / Jupyter Notebook](https://jupyter.org/)
 
 ### Installation
