@@ -7,7 +7,7 @@ name = "seaweed_algebra"
 dynamic = ["version"]
 authors = [{ name = "Jeffrey Morris", email = "jeff@jeff-m.com" }]
 maintainers = [{ name = "Jeffrey Morris", email = "jeff@jeff-m.com" }]
-description = "A library for dealing with seewead algebras."
+description = "A library for dealing with seaweed algebras."
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
