@@ -24,9 +24,7 @@ def export_as_pgf(
     path = filename.rsplit("/", maxsplit=1)[0]
     os.makedirs(path, exist_ok=True)
 
-    pgf_config = {"pgf.texsystem": texsystem}
-
-    with plt.rc_context(pgf_config):
+    with plt.rc_context({"pgf.texsystem": texsystem}):
         # Create a fresh figure using the supplied callable.
         plot_mpl()
 
