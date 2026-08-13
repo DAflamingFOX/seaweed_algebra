@@ -1,5 +1,6 @@
 import os
-from typing import Callable, Literal
+from collections.abc import Callable
+from typing import Literal
 
 import matplotlib.pyplot as plt
 
