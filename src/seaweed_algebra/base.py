@@ -9,15 +9,15 @@ class Base(ABC):
         if any(block <= 0 for block in blocks):
             raise ValueError(f"""
                              Blocks cannot contain elements <= 0.
-                             top blocks: {str(top_blocks)}
-                             bottom blocks: {str(bottom_blocks)}
+                             top blocks: {top_blocks!s}
+                             bottom blocks: {bottom_blocks!s}
                              """)
 
         if sum(top_blocks) != sum(bottom_blocks):
             raise ValueError(f"""
                              The sum of the top and bottom blocks must be equal.
-                             top blocks: {str(top_blocks)}, sum: {sum(top_blocks)}
-                             bottom blocks: {str(bottom_blocks)}, sum: {sum(bottom_blocks)}
+                             top blocks: {top_blocks!s}, sum: {sum(top_blocks)}
+                             bottom blocks: {bottom_blocks!s}, sum: {sum(bottom_blocks)}
                              {sum(top_blocks)} != {sum(bottom_blocks)}
                              """)
 
@@ -40,4 +40,4 @@ class Base(ABC):
         return f"{create_str(self.top_blocks)} / {create_str(self.bottom_blocks)}"
 
     def __repr__(self) -> str:
-        return f"(top_blocks: {str(self.top_blocks)}, bottom_blocks: {str(self.bottom_blocks)})"
+        return f"(top_blocks: {self.top_blocks!s}, bottom_blocks: {self.bottom_blocks!s})"
