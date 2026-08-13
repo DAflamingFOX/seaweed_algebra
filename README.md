@@ -6,6 +6,14 @@
 
 A Python library for computing, plotting, and other tasks related to seaweed algebra.
 
+## Overview
+
+See the [Overview](./Overview.md) file for library and mathematical documentation.
+
+## Usage
+
+See the [example](examples/README.md) folder for a demonstration on how to use the library.
+
 ## Setup
 
 ### Requirements
@@ -62,10 +70,6 @@ pip install -e .
 
 Using the `-e` flag tells pip to install the package as 'editable,' so that any changes you make to the source code is immediately reflected in the installed version on your machine.
 </details>
-
-## Usage
-
-See the [example](examples/README.md) folder for examples and demos for how to use the library.
 
 ## License
 
