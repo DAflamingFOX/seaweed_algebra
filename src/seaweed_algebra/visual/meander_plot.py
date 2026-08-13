@@ -34,7 +34,7 @@ def _plot_bezier_curve(
     codes = [Path.MOVETO, Path.CURVE3, Path.CURVE3]
 
     path = Path(verts, codes)
-    patch = PathPatch(path, facecolor="none", edgecolor=color, lw=1.5)
+    patch = PathPatch(path, facecolor="none", edgecolor=color, lw=1.5, zorder=2)
     ax.add_patch(patch)
 
 
@@ -75,8 +75,21 @@ def plot_meander(
     ax: Axes | None = None,
     arc_scale: float = 0.7,
     color_cycles: bool = False,
+    show_indices: bool = False,
+    node_size: float = 14,
+    font_size: float = 8,
 ) -> Axes:
-    """Plots the stored Meander object onto a Matplotlib axis."""
+    """Plots the stored Meander object onto a Matplotlib axis.
+
+    Args:
+        meander: The Meander instance to plot.
+        ax: Optional Matplotlib Axes object.
+        arc_scale: Scaling factor for the arc heights.
+        color_cycles: If True, colors connected components/cycles distinctly.
+        show_indices: If True, draws small circles containing index numbers instead of dots.
+        node_size: Size of the node circles when show_indices is True.
+        font_size: Font size of the index labels inside the circles.
+    """
 
     top_blocks = meander.top_blocks
     btm_blocks = meander.bottom_blocks
@@ -95,15 +108,41 @@ def plot_meander(
 
     color_map = generate_component_color_map(top_blocks, btm_blocks)
 
-    # Draw a line of verticies, these are on the x-axis spaced 1 unit apart from 1-n.
+    # Draw a line of vertices, these are on the x-axis spaced 1 unit apart from 0 to n-1.
     for i in range(n):
-        ax.plot(
-            i,
-            0,
-            marker=".",
-            color=color_map.get(i, "black") if color_cycles else "black",
-            markersize=5,
-        )
+        c = color_map.get(i, "black") if color_cycles else "black"
+        if show_indices:
+            ax.plot(
+                i,
+                0,
+                marker="o",
+                color=c,
+                markerfacecolor="white",
+                markeredgecolor=c,
+                markeredgewidth=1.2,
+                markersize=node_size,
+                zorder=3,
+            )
+            ax.text(
+                i,
+                0,
+                str(i + 1),
+                ha="center",
+                va="center_baseline",
+                fontsize=font_size,
+                fontname='serif',
+                color="black",
+                zorder=4,
+            )
+        else:
+            ax.plot(
+                i,
+                0,
+                marker=".",
+                color=c,
+                markersize=5,
+                zorder=3,
+            )
 
     # Draw the arcs
     _plot_arcs(
